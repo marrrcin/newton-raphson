@@ -124,7 +124,7 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   if(OpenDialog.Execute()) then
     begin
-       dllFilePath:=OpenDialog.FileName;
+       self.dllFilePath:=OpenDialog.FileName;
     end;
     fileTextBox.Text:=dllFilePath;
 end;

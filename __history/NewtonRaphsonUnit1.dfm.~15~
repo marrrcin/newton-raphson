@@ -4,7 +4,7 @@ object Form1: TForm1
   Caption = 
     'Program do rozwi'#261'zywania r'#243'wnania nieliniowego metod'#261' Newtona-Ra' +
     'phsona'
-  ClientHeight = 417
+  ClientHeight = 335
   ClientWidth = 846
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 169
-    Height = 417
+    Height = 335
     Align = alLeft
     TabOrder = 0
     ExplicitLeft = -6
@@ -65,7 +65,7 @@ object Form1: TForm1
     Left = 169
     Top = 0
     Width = 677
-    Height = 417
+    Height = 335
     Align = alClient
     AutoSize = True
     TabOrder = 1
@@ -76,7 +76,7 @@ object Form1: TForm1
       Left = 1
       Top = 1
       Width = 675
-      Height = 192
+      Height = 160
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -88,6 +88,8 @@ object Form1: TForm1
       Padding.Right = 10
       Padding.Bottom = 10
       TabOrder = 0
+      ExplicitLeft = 3
+      ExplicitTop = 0
       object Label2: TLabel
         Left = 96
         Top = 29
@@ -109,57 +111,12 @@ object Form1: TForm1
         Height = 13
         Caption = 'Maksymalna liczba iteracji :'
       end
-    end
-    object GroupBox2: TGroupBox
-      Left = 1
-      Top = 193
-      Width = 675
-      Height = 223
-      Align = alClient
-      Caption = ' Wyniki '
-      TabOrder = 1
-      ExplicitLeft = 6
-      ExplicitTop = 196
       object Label5: TLabel
         Left = 96
-        Top = 30
-        Width = 162
+        Top = 110
+        Width = 197
         Height = 13
-        Caption = 'Przybli'#380'ona warto'#347#263' pierwiastka : '
-      end
-      object Label6: TLabel
-        Left = 96
-        Top = 57
-        Width = 180
-        Height = 13
-        Caption = 'Warto'#347#263' funkcji dla tego pierwiastka :'
-      end
-      object Label7: TLabel
-        Left = 96
-        Top = 84
-        Width = 134
-        Height = 13
-        Caption = 'Liczba wykonanych iteracji :'
-      end
-      object Label8: TLabel
-        Left = 96
-        Top = 111
-        Width = 127
-        Height = 13
-        Caption = 'Status ko'#324'cowy oblicze'#324' : '
-      end
-      object Label9: TLabel
-        Left = 299
-        Top = 108
-        Width = 159
-        Height = 13
-        Caption = 'najpierw dokonaj oblicze'#324' ...'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
+        Caption = 'B'#322#261'd wzgl'#281'dny wyznaczania pierwiastka :'
       end
     end
   end
@@ -198,43 +155,9 @@ object Form1: TForm1
     Height = 21
     Caption = '...'
     TabOrder = 6
-    OnClick = Button1Click
-  end
-  object Button2: TButton
-    Left = 469
-    Top = 135
-    Width = 116
-    Height = 25
-    Caption = 'oblicz'
-    TabOrder = 7
-  end
-  object resultTextBox: TEdit
-    Left = 469
-    Top = 220
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 8
-  end
-  object functionValueTextBox: TEdit
-    Left = 469
-    Top = 247
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 9
-  end
-  object iterationsTextBox: TEdit
-    Left = 469
-    Top = 274
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 10
   end
   object OpenDialog: TOpenDialog
-    Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
-    Left = 768
-    Top = 48
+    Left = 752
+    Top = 56
   end
 end

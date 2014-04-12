@@ -198,7 +198,6 @@ object Form1: TForm1
     Height = 21
     Caption = '...'
     TabOrder = 6
-    OnClick = Button1Click
   end
   object Button2: TButton
     Left = 469
@@ -208,32 +207,31 @@ object Form1: TForm1
     Caption = 'oblicz'
     TabOrder = 7
   end
-  object resultTextBox: TEdit
+  object Edit1: TEdit
     Left = 469
     Top = 220
     Width = 244
     Height = 21
-    ReadOnly = True
     TabOrder = 8
+    Text = 'Edit1'
   end
-  object functionValueTextBox: TEdit
+  object Edit2: TEdit
     Left = 469
     Top = 247
     Width = 244
     Height = 21
-    ReadOnly = True
     TabOrder = 9
+    Text = 'Edit1'
   end
-  object iterationsTextBox: TEdit
+  object Edit3: TEdit
     Left = 469
     Top = 274
     Width = 244
     Height = 21
-    ReadOnly = True
     TabOrder = 10
+    Text = 'Edit1'
   end
   object OpenDialog: TOpenDialog
-    Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
     Left = 768
     Top = 48
   end

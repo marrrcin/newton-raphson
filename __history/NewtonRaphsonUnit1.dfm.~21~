@@ -198,7 +198,6 @@ object Form1: TForm1
     Height = 21
     Caption = '...'
     TabOrder = 6
-    OnClick = Button1Click
   end
   object Button2: TButton
     Left = 469
@@ -233,7 +232,6 @@ object Form1: TForm1
     TabOrder = 10
   end
   object OpenDialog: TOpenDialog
-    Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
     Left = 768
     Top = 48
   end

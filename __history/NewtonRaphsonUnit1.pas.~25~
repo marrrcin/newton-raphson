@@ -38,12 +38,10 @@ type
     Label9: TLabel;
     procedure RadioButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
   radioButtons : Array[1..3] of TRadioButton;
-  dllFilePath : String;
     { Public declarations }
   end;
 
@@ -120,21 +118,11 @@ begin
 end;
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  if(OpenDialog.Execute()) then
-    begin
-       dllFilePath:=OpenDialog.FileName;
-    end;
-    fileTextBox.Text:=dllFilePath;
-end;
-
 procedure TForm1.FormShow(Sender: TObject);
 begin
   radioButtons[1]:=RadioButton1;
   radioButtons[2]:=RadioButton2;
   radioButtons[3]:=RadioButton3;
-  dllFilePath:='';
 end;
 
 
