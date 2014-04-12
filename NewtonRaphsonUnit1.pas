@@ -9,6 +9,8 @@ uses
 
 type Extended = TExtendedX87;
 type
+  fx = function (x: Extended) : Extended;
+type
   TForm1 = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
@@ -35,10 +37,17 @@ type
     resultTextBox: TEdit;
     functionValueTextBox: TEdit;
     iterationsTextBox: TEdit;
-    Label9: TLabel;
+    statusLabel: TLabel;
+    dllErrorTextBox: TLabel;
+    Label10: TLabel;
     procedure RadioButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure CheckDllFile();
+    procedure LoadAndCheckDllFunction(dllHandler:THandle;functionName:String);
+    procedure LoadFunctionsFromDll(dllHandler:THandle;f:fx;df:fx;d2f:fx);
+    procedure WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
+    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,8 +57,7 @@ type
   end;
 
 
-type
-  fx = function (x: Extended) : Extended;
+
 var
   Form1: TForm1;
 
@@ -127,6 +135,7 @@ begin
        dllFilePath:=OpenDialog.FileName;
     end;
     fileTextBox.Text:=dllFilePath;
+    CheckDllFile;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -149,6 +158,92 @@ begin
         else
           Form1.radioButtons[i].Checked:=False;
       end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  dllHandler : THandle;
+  fileName : PWideChar;
+  x : Extended;
+  f,df,d2f : fx;
+  result : Extended;
+  maxIterations : Integer;
+  epsilon : Extended;
+  doneIterations : Integer;
+  fResultValue : Extended;
+  status : Integer;
+begin
+  if(dllErrorTextBox.Visible=True) then
+    Exit;
+
+  try
+    fileName:=Addr(dllFilePath[1]);
+    dllHandler:=LoadLibrary(fileName);
+    LoadFunctionsFromDll(dllHandler,f,df,d2f);
+
+    x:=StrToFloat(startApproximationTextBox.Text); //pewnie trzeba bedzie zamienic!!!!!!
+    maxIterations:=StrToInt(maxIterationsTextBox.Text);
+    epsilon:=StrToFloat(epsilonTextBox.Text);
+
+    result:=NewtonRaphson(x,f,df,d2f,maxIterations,epsilon,fResultValue,doneIterations,status);
+
+    WriteResults(result,fResultValue,doneIterations,status);
+  finally
+    FreeLibrary(dllHandler);
+  end;
+end;
+
+procedure TForm1.WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
+begin
+  resultTextBox.Text:=FloatToStr(result);
+  functionValueTextBox.Text:=FloatToStr(fResultValue);
+  iterationsTextBox.Text:=FloatToStr(iterations);
+  statusLabel.Caption:=IntToStr(status);
+end;
+
+procedure TForm1.CheckDllFile;
+var
+  dllHandler : THandle;
+  fileName : PWideChar;
+begin
+  if(dllFilePath='') then
+  begin
+    dllErrorTextBox.Visible:=True;
+    Exit;
+  end;
+
+  try
+    fileName:=Addr(dllFilePath[1]);
+    dllHandler:=LoadLibrary(fileName);
+
+    try
+      LoadAndCheckDllFunction(dllHandler,'f');
+      LoadAndCheckDllFunction(dllHandler,'df');
+      LoadAndCheckDllFunction(dllHandler,'d2f');
+      dllErrorTextBox.Visible:=False
+    except
+      dllErrorTextBox.Visible:=True
+    end;
+  finally
+    FreeLibrary(dllHandler);
+  end;
+
+
+end;
+
+procedure TForm1.LoadAndCheckDllFunction(dllHandler:THandle;functionName:String);
+var
+  dllFunction : fx;
+begin
+    @dllFunction:=GetProcAddress(dllHandler,'f');
+    if(@dllFunction=nil) then raise Exception.Create('DLL error');
+end;
+
+procedure TForm1.LoadFunctionsFromDll(dllHandler:THandle;f: fx; df: fx; d2f: fx);
+begin
+  @f:=GetProcAddress(dllHandler,'f');
+  @df:=GetProcAddress(dllHandler,'df');
+  @d2f:=GetProcAddress(dllHandler,'d2f');
 end;
 
 

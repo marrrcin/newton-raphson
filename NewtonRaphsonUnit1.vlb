@@ -69,9 +69,6 @@ Coordinates=300,332,53,58
 [Label8]
 Coordinates=241,332,53,58
 
-[Label9]
-Coordinates=35,332,53,58
-
 [iterationsTextBox]
 Coordinates=94,332,114,58
 
@@ -80,4 +77,13 @@ Coordinates=143,332,140,58
 
 [resultTextBox]
 Coordinates=192,332,93,58
+
+[dllErrorTextBox]
+Coordinates=500,1,103,58
+
+[Label10]
+Coordinates=500,78,60,58
+
+[statusLabel]
+Coordinates=35,332,80,58
 

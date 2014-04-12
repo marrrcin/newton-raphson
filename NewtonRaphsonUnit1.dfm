@@ -5,7 +5,7 @@ object Form1: TForm1
     'Program do rozwi'#261'zywania r'#243'wnania nieliniowego metod'#261' Newtona-Ra' +
     'phsona'
   ClientHeight = 417
-  ClientWidth = 846
+  ClientWidth = 882
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -64,7 +64,7 @@ object Form1: TForm1
   object Panel2: TPanel
     Left = 169
     Top = 0
-    Width = 677
+    Width = 713
     Height = 417
     Align = alClient
     AutoSize = True
@@ -75,7 +75,7 @@ object Form1: TForm1
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 675
+      Width = 711
       Height = 192
       Margins.Left = 0
       Margins.Top = 0
@@ -88,6 +88,8 @@ object Form1: TForm1
       Padding.Right = 10
       Padding.Bottom = 10
       TabOrder = 0
+      ExplicitLeft = 3
+      ExplicitTop = -2
       object Label2: TLabel
         Left = 96
         Top = 29
@@ -109,17 +111,46 @@ object Form1: TForm1
         Height = 13
         Caption = 'Maksymalna liczba iteracji :'
       end
+      object dllErrorTextBox: TLabel
+        Left = 453
+        Top = 56
+        Width = 213
+        Height = 13
+        Caption = 'B'#322#261'd! Plik nie zawiera funkcji f, df, d2f !'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object Label10: TLabel
+        Left = 96
+        Top = 110
+        Width = 197
+        Height = 13
+        Caption = 'B'#322#261'd wzgl'#281'dny wyznaczania pierwiastka :'
+      end
+      object startApproximationTextBox: TEdit
+        Left = 299
+        Top = 26
+        Width = 116
+        Height = 21
+        TabOrder = 0
+      end
     end
     object GroupBox2: TGroupBox
       Left = 1
       Top = 193
-      Width = 675
+      Width = 711
       Height = 223
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
       ExplicitLeft = 6
       ExplicitTop = 196
+      ExplicitWidth = 675
       object Label5: TLabel
         Left = 96
         Top = 30
@@ -148,7 +179,7 @@ object Form1: TForm1
         Height = 13
         Caption = 'Status ko'#324'cowy oblicze'#324' : '
       end
-      object Label9: TLabel
+      object statusLabel: TLabel
         Left = 299
         Top = 108
         Width = 159
@@ -161,35 +192,36 @@ object Form1: TForm1
         Font.Style = [fsBold]
         ParentFont = False
       end
+      object resultTextBox: TEdit
+        Left = 299
+        Top = 27
+        Width = 244
+        Height = 21
+        ReadOnly = True
+        TabOrder = 0
+      end
     end
-  end
-  object startApproximationTextBox: TEdit
-    Left = 469
-    Top = 27
-    Width = 116
-    Height = 21
-    TabOrder = 2
   end
   object fileTextBox: TEdit
     Left = 469
     Top = 54
     Width = 116
     Height = 21
-    TabOrder = 3
+    TabOrder = 2
   end
   object maxIterationsTextBox: TEdit
     Left = 469
     Top = 81
     Width = 116
     Height = 21
-    TabOrder = 4
+    TabOrder = 3
   end
   object epsilonTextBox: TEdit
     Left = 469
     Top = 108
     Width = 116
     Height = 21
-    TabOrder = 5
+    TabOrder = 4
   end
   object Button1: TButton
     Left = 591
@@ -197,7 +229,7 @@ object Form1: TForm1
     Width = 26
     Height = 21
     Caption = '...'
-    TabOrder = 6
+    TabOrder = 5
     OnClick = Button1Click
   end
   object Button2: TButton
@@ -206,15 +238,8 @@ object Form1: TForm1
     Width = 116
     Height = 25
     Caption = 'oblicz'
-    TabOrder = 7
-  end
-  object resultTextBox: TEdit
-    Left = 469
-    Top = 220
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 8
+    TabOrder = 6
+    OnClick = Button2Click
   end
   object functionValueTextBox: TEdit
     Left = 469
@@ -222,7 +247,7 @@ object Form1: TForm1
     Width = 244
     Height = 21
     ReadOnly = True
-    TabOrder = 9
+    TabOrder = 7
   end
   object iterationsTextBox: TEdit
     Left = 469
@@ -230,11 +255,11 @@ object Form1: TForm1
     Width = 244
     Height = 21
     ReadOnly = True
-    TabOrder = 10
+    TabOrder = 8
   end
   object OpenDialog: TOpenDialog
     Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
     Left = 768
-    Top = 48
+    Top = 128
   end
 end
