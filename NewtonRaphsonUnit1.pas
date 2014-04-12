@@ -179,7 +179,9 @@ begin
   try
     fileName:=Addr(dllFilePath[1]);
     dllHandler:=LoadLibrary(fileName);
-    LoadFunctionsFromDll(dllHandler,f,df,d2f);
+    @f:=GetProcAddress(dllHandler,'f');
+    @df:=GetProcAddress(dllHandler,'df');
+    @d2f:=GetProcAddress(dllHandler,'d2f');
 
     x:=StrToFloat(startApproximationTextBox.Text); //pewnie trzeba bedzie zamienic!!!!!!
     maxIterations:=StrToInt(maxIterationsTextBox.Text);

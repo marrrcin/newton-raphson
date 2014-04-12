@@ -139,6 +139,45 @@ object Form1: TForm1
         Height = 21
         TabOrder = 0
       end
+      object Button2: TButton
+        Left = 299
+        Top = 134
+        Width = 116
+        Height = 25
+        Caption = 'oblicz'
+        TabOrder = 4
+        OnClick = Button2Click
+      end
+      object Button1: TButton
+        Left = 421
+        Top = 53
+        Width = 26
+        Height = 21
+        Caption = '...'
+        TabOrder = 1
+        OnClick = Button1Click
+      end
+      object epsilonTextBox: TEdit
+        Left = 299
+        Top = 107
+        Width = 116
+        Height = 21
+        TabOrder = 3
+      end
+      object fileTextBox: TEdit
+        Left = 299
+        Top = 53
+        Width = 116
+        Height = 21
+        TabOrder = 5
+      end
+      object maxIterationsTextBox: TEdit
+        Left = 299
+        Top = 80
+        Width = 116
+        Height = 21
+        TabOrder = 2
+      end
     end
     object GroupBox2: TGroupBox
       Left = 1
@@ -200,62 +239,23 @@ object Form1: TForm1
         ReadOnly = True
         TabOrder = 0
       end
+      object iterationsTextBox: TEdit
+        Left = 299
+        Top = 81
+        Width = 244
+        Height = 21
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object functionValueTextBox: TEdit
+        Left = 299
+        Top = 54
+        Width = 244
+        Height = 21
+        ReadOnly = True
+        TabOrder = 2
+      end
     end
-  end
-  object fileTextBox: TEdit
-    Left = 469
-    Top = 54
-    Width = 116
-    Height = 21
-    TabOrder = 2
-  end
-  object maxIterationsTextBox: TEdit
-    Left = 469
-    Top = 81
-    Width = 116
-    Height = 21
-    TabOrder = 3
-  end
-  object epsilonTextBox: TEdit
-    Left = 469
-    Top = 108
-    Width = 116
-    Height = 21
-    TabOrder = 4
-  end
-  object Button1: TButton
-    Left = 591
-    Top = 54
-    Width = 26
-    Height = 21
-    Caption = '...'
-    TabOrder = 5
-    OnClick = Button1Click
-  end
-  object Button2: TButton
-    Left = 469
-    Top = 135
-    Width = 116
-    Height = 25
-    Caption = 'oblicz'
-    TabOrder = 6
-    OnClick = Button2Click
-  end
-  object functionValueTextBox: TEdit
-    Left = 469
-    Top = 247
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 7
-  end
-  object iterationsTextBox: TEdit
-    Left = 469
-    Top = 274
-    Width = 244
-    Height = 21
-    ReadOnly = True
-    TabOrder = 8
   end
   object OpenDialog: TOpenDialog
     Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
