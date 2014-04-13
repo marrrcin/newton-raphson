@@ -4,7 +4,7 @@ object Form1: TForm1
   Caption = 
     'Program do rozwi'#261'zywania r'#243'wnania nieliniowego metod'#261' Newtona-Ra' +
     'phsona'
-  ClientHeight = 417
+  ClientHeight = 700
   ClientWidth = 882
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,12 +20,11 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 169
-    Height = 417
+    Height = 700
     Align = alLeft
     TabOrder = 0
-    ExplicitLeft = -6
-    ExplicitTop = -8
-    ExplicitHeight = 333
+    ExplicitLeft = -5
+    ExplicitHeight = 479
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -42,21 +41,23 @@ object Form1: TForm1
       TabOrder = 0
       OnClick = RadioButtonClick
     end
-    object RadioButton3: TRadioButton
-      Left = 24
-      Top = 118
-      Width = 113
-      Height = 17
-      Caption = 'przedzia'#322'owa'
-      TabOrder = 1
-      OnClick = RadioButtonClick
-    end
     object RadioButton1: TRadioButton
       Left = 24
       Top = 72
       Width = 113
       Height = 17
       Caption = 'zmiennopozycyjna'
+      Checked = True
+      TabOrder = 1
+      TabStop = True
+      OnClick = RadioButtonClick
+    end
+    object RadioButton3: TRadioButton
+      Left = 24
+      Top = 118
+      Width = 113
+      Height = 17
+      Caption = 'przedzia'#322'owa'
       TabOrder = 2
       OnClick = RadioButtonClick
     end
@@ -65,13 +66,11 @@ object Form1: TForm1
     Left = 169
     Top = 0
     Width = 713
-    Height = 417
+    Height = 700
     Align = alClient
     AutoSize = True
     TabOrder = 1
-    ExplicitLeft = 175
-    ExplicitWidth = 715
-    ExplicitHeight = 333
+    ExplicitHeight = 417
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -82,14 +81,17 @@ object Form1: TForm1
       Margins.Right = 0
       Margins.Bottom = 0
       Align = alTop
-      Caption = ' Dane do oblicze'#324' '
+      Caption = ' Dane do oblicze'#324' (arytmetyka zmiennopozycyjna) '
+      Color = clBtnFace
+      Ctl3D = True
       Padding.Left = 10
       Padding.Top = 10
       Padding.Right = 10
       Padding.Bottom = 10
+      ParentBackground = False
+      ParentColor = False
+      ParentCtl3D = False
       TabOrder = 0
-      ExplicitLeft = 3
-      ExplicitTop = -2
       object Label2: TLabel
         Left = 96
         Top = 29
@@ -178,18 +180,33 @@ object Form1: TForm1
         Height = 21
         TabOrder = 2
       end
+      object Button3: TButton
+        Left = 421
+        Top = 107
+        Width = 26
+        Height = 21
+        Caption = 'e-16'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -9
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        OnClick = Button3Click
+      end
     end
     object GroupBox2: TGroupBox
       Left = 1
-      Top = 193
+      Top = 417
       Width = 711
-      Height = 223
+      Height = 282
       Align = alClient
-      Caption = ' Wyniki '
+      Caption = ' Wyniki (arytmetyka zmiennopozycyjna) '
       TabOrder = 1
-      ExplicitLeft = 6
-      ExplicitTop = 196
-      ExplicitWidth = 675
+      ExplicitLeft = 0
+      ExplicitTop = 304
+      ExplicitHeight = 180
       object Label5: TLabel
         Left = 96
         Top = 30
@@ -255,6 +272,28 @@ object Form1: TForm1
         ReadOnly = True
         TabOrder = 2
       end
+    end
+    object GroupBox3: TGroupBox
+      Left = 1
+      Top = 193
+      Width = 711
+      Height = 224
+      Align = alTop
+      Caption = ' Dane do oblicze'#324' (arytmetyka przedzia'#322'owa) '
+      TabOrder = 2
+      Visible = False
+    end
+    object GroupBox4: TGroupBox
+      Left = 1
+      Top = 417
+      Width = 711
+      Height = 282
+      Align = alClient
+      Caption = 'Wyniki (arytmetyka przedzia'#322'owa) '
+      TabOrder = 3
+      Visible = False
+      ExplicitTop = 392
+      ExplicitHeight = 199
     end
   end
   object OpenDialog: TOpenDialog

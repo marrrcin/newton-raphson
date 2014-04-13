@@ -40,6 +40,9 @@ type
     statusLabel: TLabel;
     dllErrorTextBox: TLabel;
     Label10: TLabel;
+    Button3: TButton;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
     procedure RadioButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -48,6 +51,8 @@ type
     procedure LoadFunctionsFromDll(dllHandler:THandle;f:fx;df:fx;d2f:fx);
     procedure WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure SwitchInputPanel();
   private
     { Private declarations }
   public
@@ -144,6 +149,7 @@ begin
   radioButtons[2]:=RadioButton2;
   radioButtons[3]:=RadioButton3;
   dllFilePath:='';
+  Form1.Height:=450;
 end;
 
 
@@ -158,6 +164,26 @@ begin
         else
           Form1.radioButtons[i].Checked:=False;
       end;
+      SwitchInputPanel;
+end;
+
+procedure TForm1.SwitchInputPanel;
+begin
+  if(Form1.radioButtons[1].Checked) then //wybrano arytmetyke zmiennoprzecinkowa
+  begin
+    GroupBox1.Visible:=True;
+    GroupBox2.Visible:=True;
+    GroupBox3.Visible:=False;
+    GroupBox4.Visible:=False;
+  end
+  else
+  begin
+    GroupBox1.Visible:=False;
+    GroupBox2.Visible:=False;
+    GroupBox3.Visible:=True;
+    GroupBox4.Visible:=True;
+  end;
+
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -193,6 +219,11 @@ begin
   finally
     FreeLibrary(dllHandler);
   end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  epsilonTextBox.Text:='0,0000000000000001';
 end;
 
 procedure TForm1.WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
