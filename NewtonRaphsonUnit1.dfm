@@ -23,8 +23,6 @@ object Form1: TForm1
     Height = 700
     Align = alLeft
     TabOrder = 0
-    ExplicitLeft = -5
-    ExplicitHeight = 479
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -70,12 +68,11 @@ object Form1: TForm1
     Align = alClient
     AutoSize = True
     TabOrder = 1
-    ExplicitHeight = 417
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
       Width = 711
-      Height = 192
+      Height = 274
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
@@ -108,7 +105,7 @@ object Form1: TForm1
       end
       object Label4: TLabel
         Left = 96
-        Top = 85
+        Top = 112
         Width = 129
         Height = 13
         Caption = 'Maksymalna liczba iteracji :'
@@ -129,7 +126,7 @@ object Form1: TForm1
       end
       object Label10: TLabel
         Left = 96
-        Top = 110
+        Top = 136
         Width = 197
         Height = 13
         Caption = 'B'#322#261'd wzgl'#281'dny wyznaczania pierwiastka :'
@@ -143,7 +140,7 @@ object Form1: TForm1
       end
       object Button2: TButton
         Left = 299
-        Top = 134
+        Top = 161
         Width = 116
         Height = 25
         Caption = 'oblicz'
@@ -161,7 +158,7 @@ object Form1: TForm1
       end
       object epsilonTextBox: TEdit
         Left = 299
-        Top = 107
+        Top = 134
         Width = 116
         Height = 21
         TabOrder = 3
@@ -175,14 +172,14 @@ object Form1: TForm1
       end
       object maxIterationsTextBox: TEdit
         Left = 299
-        Top = 80
+        Top = 107
         Width = 116
         Height = 21
         TabOrder = 2
       end
       object Button3: TButton
         Left = 421
-        Top = 107
+        Top = 134
         Width = 26
         Height = 21
         Caption = 'e-16'
@@ -195,18 +192,53 @@ object Form1: TForm1
         TabOrder = 6
         OnClick = Button3Click
       end
+      object d2fNameTextBox: TEdit
+        Left = 399
+        Top = 80
+        Width = 44
+        Height = 21
+        Enabled = False
+        TabOrder = 7
+        Text = 'd2f'
+      end
+      object dfNameTextBox: TEdit
+        Left = 349
+        Top = 80
+        Width = 44
+        Height = 21
+        Enabled = False
+        TabOrder = 8
+        Text = 'df'
+      end
+      object fNameTextBox: TEdit
+        Left = 299
+        Top = 80
+        Width = 44
+        Height = 21
+        Enabled = False
+        TabOrder = 9
+        Text = 'f'
+      end
+      object namesCheckBox: TCheckBox
+        Left = 96
+        Top = 82
+        Width = 162
+        Height = 17
+        Caption = 'inne nazwy funkcji w DLL :'
+        TabOrder = 10
+        OnClick = namesCheckBoxClick
+      end
     end
     object GroupBox2: TGroupBox
       Left = 1
-      Top = 417
+      Top = 467
       Width = 711
-      Height = 282
+      Height = 232
       Align = alClient
       Caption = ' Wyniki (arytmetyka zmiennopozycyjna) '
       TabOrder = 1
-      ExplicitLeft = 0
-      ExplicitTop = 304
-      ExplicitHeight = 180
+      ExplicitTop = 385
+      ExplicitHeight = 314
       object Label5: TLabel
         Left = 96
         Top = 30
@@ -275,25 +307,143 @@ object Form1: TForm1
     end
     object GroupBox3: TGroupBox
       Left = 1
-      Top = 193
+      Top = 275
       Width = 711
-      Height = 224
+      Height = 192
       Align = alTop
       Caption = ' Dane do oblicze'#324' (arytmetyka przedzia'#322'owa) '
       TabOrder = 2
       Visible = False
+      ExplicitTop = 193
+      object Label9: TLabel
+        Left = 96
+        Top = 29
+        Width = 185
+        Height = 13
+        Caption = 'Pocz'#261'tkowe przybli'#380'enie pierwsiastka :'
+      end
+      object labelSemiColon1: TLabel
+        Left = 389
+        Top = 32
+        Width = 4
+        Height = 13
+        Caption = ';'
+      end
+      object Label12: TLabel
+        Left = 96
+        Top = 57
+        Width = 139
+        Height = 13
+        Caption = 'Plik DLL z funkcjami f,df,d2f :'
+      end
+      object dllErrorTextBox2: TLabel
+        Left = 453
+        Top = 57
+        Width = 213
+        Height = 13
+        Caption = 'B'#322#261'd! Plik nie zawiera funkcji f, df, d2f !'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Visible = False
+      end
+      object Label13: TLabel
+        Left = 96
+        Top = 85
+        Width = 129
+        Height = 13
+        Caption = 'Maksymalna liczba iteracji :'
+      end
+      object Label14: TLabel
+        Left = 96
+        Top = 108
+        Width = 197
+        Height = 13
+        Caption = 'B'#322#261'd wzgl'#281'dny wyznaczania pierwiastka :'
+      end
+      object startApproximationLeftTextBox: TEdit
+        Left = 299
+        Top = 27
+        Width = 84
+        Height = 21
+        TabOrder = 0
+      end
+      object startApproximationRightTextBox: TEdit
+        Left = 397
+        Top = 27
+        Width = 84
+        Height = 21
+        TabOrder = 1
+      end
+      object fileTextBox2: TEdit
+        Left = 299
+        Top = 54
+        Width = 116
+        Height = 21
+        TabOrder = 2
+      end
+      object Button4: TButton
+        Left = 421
+        Top = 54
+        Width = 26
+        Height = 21
+        Caption = '...'
+        TabOrder = 3
+        OnClick = Button1Click
+      end
+      object maxIterationsIntervalTextBox: TEdit
+        Left = 299
+        Top = 81
+        Width = 116
+        Height = 21
+        TabOrder = 4
+      end
+      object epsilonIntervalTextBox: TEdit
+        Left = 299
+        Top = 108
+        Width = 116
+        Height = 21
+        TabOrder = 5
+      end
+      object Button5: TButton
+        Left = 421
+        Top = 108
+        Width = 26
+        Height = 21
+        Caption = 'e-16'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -9
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        OnClick = Button3Click
+      end
+      object Button6: TButton
+        Left = 299
+        Top = 135
+        Width = 116
+        Height = 25
+        Caption = 'oblicz'
+        TabOrder = 7
+        OnClick = Button2Click
+      end
     end
     object GroupBox4: TGroupBox
       Left = 1
-      Top = 417
+      Top = 467
       Width = 711
-      Height = 282
+      Height = 232
       Align = alClient
       Caption = 'Wyniki (arytmetyka przedzia'#322'owa) '
       TabOrder = 3
       Visible = False
-      ExplicitTop = 392
-      ExplicitHeight = 199
+      ExplicitTop = 385
+      ExplicitHeight = 314
     end
   end
   object OpenDialog: TOpenDialog
