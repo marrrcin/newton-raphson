@@ -72,13 +72,13 @@ object Form1: TForm1
       Left = 1
       Top = 1
       Width = 711
-      Height = 274
+      Height = 208
       Margins.Left = 0
       Margins.Top = 0
       Margins.Right = 0
       Margins.Bottom = 0
       Align = alTop
-      Caption = ' Dane do oblicze'#324' (arytmetyka zmiennopozycyjna) '
+      Caption = '(arytmetyka zmiennopozycyjna) '
       Color = clBtnFace
       Ctl3D = True
       Padding.Left = 10
@@ -137,6 +137,7 @@ object Form1: TForm1
         Width = 4
         Height = 13
         Caption = ';'
+        Visible = False
       end
       object startApproximationTextBox: TEdit
         Left = 299
@@ -241,13 +242,14 @@ object Form1: TForm1
         Width = 84
         Height = 21
         TabOrder = 11
+        Visible = False
       end
     end
     object GroupBox2: TGroupBox
       Left = 1
-      Top = 275
+      Top = 209
       Width = 711
-      Height = 424
+      Height = 490
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
@@ -297,7 +299,7 @@ object Form1: TForm1
       object resultTextBox: TEdit
         Left = 299
         Top = 27
-        Width = 244
+        Width = 190
         Height = 21
         ReadOnly = True
         TabOrder = 0
@@ -305,7 +307,7 @@ object Form1: TForm1
       object iterationsTextBox: TEdit
         Left = 299
         Top = 81
-        Width = 244
+        Width = 190
         Height = 21
         ReadOnly = True
         TabOrder = 1
@@ -313,7 +315,7 @@ object Form1: TForm1
       object functionValueTextBox: TEdit
         Left = 299
         Top = 54
-        Width = 244
+        Width = 190
         Height = 21
         ReadOnly = True
         TabOrder = 2

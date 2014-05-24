@@ -67,6 +67,7 @@ type
   radioButtons : Array[1..3] of TRadioButton;
   dllFilePath : String;
   functionNames : Array[1..3] of PWideChar;
+  groupBoxLabel : String;
     { Public declarations }
   end;
 
@@ -142,7 +143,6 @@ begin
        dllFilePath:=OpenDialog.FileName;
     end;
     fileTextBox.Text:=dllFilePath;
-    fileTextBox2.Text:=dllFilePath;
     CheckDllFile;
 end;
 
@@ -155,6 +155,7 @@ begin
   functionNames[2]:='df';
   functionNames[3]:='d2f';
   dllFilePath:='';
+  groupBoxLabel:=' Dane do obliczeñ ';
   Form1.Height:=450;
 end;
 
@@ -182,23 +183,13 @@ procedure TForm1.SwitchInputPanel;
 var
     fullInterval : Boolean;
 begin
-  if(Form1.radioButtons[1].Checked) then //wybrano arytmetyke zmiennoprzecinkowa
-  begin
-    GroupBox1.Visible:=True;
-    GroupBox2.Visible:=True;
-    GroupBox3.Visible:=False;
-    GroupBox4.Visible:=False;
-  end
-  else
-  begin
-    fullInterval:=Form1.radioButtons[3].Checked;
-    GroupBox1.Visible:=False;
-    GroupBox2.Visible:=False;
-    GroupBox3.Visible:=True;
-    GroupBox4.Visible:=True;
+    if(radioButtons[1].Checked)
+    begin
+      //
+    end;
+    fullInterval:=radioButtons[3].Checked;
     startApproximationRightTextBox.Visible:=fullInterval;
     labelSemiColon1.Visible:=fullInterval;
-  end;
 
 end;
 
@@ -243,7 +234,6 @@ var
 begin
   defaultValue:='0,0000000000000001';
   epsilonTextBox.Text:=defaultValue;
-  epsilonIntervalTextBox.Text:=defaultValue;
 end;
 
 procedure TForm1.WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
@@ -274,7 +264,6 @@ begin
   if(dllFilePath='') then
   begin
     dllErrorTextBox.Visible:=True;
-    dllErrorTextBox2.Visible:=True;
     Exit;
   end;
 
@@ -287,10 +276,8 @@ begin
       LoadAndCheckDllFunction(dllHandler,'df');
       LoadAndCheckDllFunction(dllHandler,'d2f');
       dllErrorTextBox.Visible:=False;
-      dllErrorTextBox2.Visible:=False;
     except
       dllErrorTextBox.Visible:=True;
-      dllErrorTextBox2.Visible:=True;
     end;
   finally
     FreeLibrary(dllHandler);
