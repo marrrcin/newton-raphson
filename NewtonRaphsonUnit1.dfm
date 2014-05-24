@@ -253,8 +253,8 @@ object Form1: TForm1
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
-      ExplicitTop = 467
-      ExplicitHeight = 232
+      ExplicitLeft = 6
+      ExplicitTop = 212
       object Label5: TLabel
         Left = 96
         Top = 30
@@ -324,7 +324,7 @@ object Form1: TForm1
   end
   object OpenDialog: TOpenDialog
     Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
-    Left = 768
-    Top = 128
+    Left = 800
+    Top = 144
   end
 end

@@ -155,7 +155,10 @@ begin
   functionNames[2]:='df';
   functionNames[3]:='d2f';
   dllFilePath:='';
+
   groupBoxLabel:=' Dane do obliczeñ ';
+  SwitchInputPanel;
+
   Form1.Height:=450;
 end;
 
@@ -183,10 +186,11 @@ procedure TForm1.SwitchInputPanel;
 var
     fullInterval : Boolean;
 begin
-    if(radioButtons[1].Checked)
-    begin
-      //
-    end;
+    if(radioButtons[1].Checked) then
+      GroupBox1.Caption:=groupBoxLabel+'(arytmetyka zmiennoprzecinkowa)'
+    else
+      GroupBox1.Caption:=groupBoxLabel+'(artymetyka przedzia³owa)';
+
     fullInterval:=radioButtons[3].Checked;
     startApproximationRightTextBox.Visible:=fullInterval;
     labelSemiColon1.Visible:=fullInterval;
