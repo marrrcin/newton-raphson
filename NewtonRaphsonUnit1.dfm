@@ -152,7 +152,7 @@ object Form1: TForm1
         Width = 116
         Height = 25
         Caption = 'oblicz'
-        TabOrder = 4
+        TabOrder = 9
         OnClick = Button2Click
       end
       object Button1: TButton
@@ -161,7 +161,7 @@ object Form1: TForm1
         Width = 26
         Height = 21
         Caption = '...'
-        TabOrder = 1
+        TabOrder = 10
         OnClick = Button1Click
       end
       object epsilonTextBox: TEdit
@@ -169,21 +169,21 @@ object Form1: TForm1
         Top = 134
         Width = 116
         Height = 21
-        TabOrder = 3
+        TabOrder = 7
       end
       object fileTextBox: TEdit
         Left = 299
         Top = 53
         Width = 116
         Height = 21
-        TabOrder = 5
+        TabOrder = 2
       end
       object maxIterationsTextBox: TEdit
         Left = 299
         Top = 107
         Width = 116
         Height = 21
-        TabOrder = 2
+        TabOrder = 6
       end
       object Button3: TButton
         Left = 421
@@ -197,17 +197,8 @@ object Form1: TForm1
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
-        TabOrder = 6
+        TabOrder = 8
         OnClick = Button3Click
-      end
-      object d2fNameTextBox: TEdit
-        Left = 399
-        Top = 80
-        Width = 44
-        Height = 21
-        Enabled = False
-        TabOrder = 7
-        Text = 'd2f'
       end
       object dfNameTextBox: TEdit
         Left = 349
@@ -215,7 +206,7 @@ object Form1: TForm1
         Width = 44
         Height = 21
         Enabled = False
-        TabOrder = 8
+        TabOrder = 4
         Text = 'df'
       end
       object fNameTextBox: TEdit
@@ -224,7 +215,7 @@ object Form1: TForm1
         Width = 44
         Height = 21
         Enabled = False
-        TabOrder = 9
+        TabOrder = 3
         Text = 'f'
       end
       object namesCheckBox: TCheckBox
@@ -233,7 +224,7 @@ object Form1: TForm1
         Width = 162
         Height = 17
         Caption = 'inne nazwy funkcji w DLL :'
-        TabOrder = 10
+        TabOrder = 11
         OnClick = namesCheckBoxClick
       end
       object startApproximationRightTextBox: TEdit
@@ -241,8 +232,17 @@ object Form1: TForm1
         Top = 26
         Width = 84
         Height = 21
-        TabOrder = 11
+        TabOrder = 1
         Visible = False
+      end
+      object d2fNameTextBox: TEdit
+        Left = 399
+        Top = 80
+        Width = 44
+        Height = 21
+        Enabled = False
+        TabOrder = 5
+        Text = 'd2f'
       end
     end
     object GroupBox2: TGroupBox
@@ -253,7 +253,7 @@ object Form1: TForm1
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
-      ExplicitLeft = 6
+      ExplicitLeft = 65
       ExplicitTop = 212
       object Label5: TLabel
         Left = 96

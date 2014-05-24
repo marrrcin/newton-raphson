@@ -54,19 +54,18 @@ type
     procedure Button1Click(Sender: TObject);
     procedure CheckDllFile();
     procedure LoadAndCheckDllFunction(dllHandler:THandle;functionName:String);
-    procedure LoadFunctionsFromDll(dllHandler:THandle;f:fx;df:fx;d2f:fx);
     procedure WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure SwitchInputPanel();
     procedure namesCheckBoxClick(Sender: TObject);
-    procedure switchFunctionNames(CustomNamesSelected:Boolean);
+    procedure SwitchFunctionNames(CustomNamesSelected:Boolean);
   private
     { Private declarations }
   public
   radioButtons : Array[1..3] of TRadioButton;
   dllFilePath : String;
-  functionNames : Array[1..3] of PWideChar;
+  functionNames : Array[1..3] of String;
   groupBoxLabel : String;
     { Public declarations }
   end;
@@ -151,9 +150,7 @@ begin
   radioButtons[1]:=RadioButton1;
   radioButtons[2]:=RadioButton2;
   radioButtons[3]:=RadioButton3;
-  functionNames[1]:='f';
-  functionNames[2]:='df';
-  functionNames[3]:='d2f';
+  SwitchFunctionNames(false);
   dllFilePath:='';
 
   groupBoxLabel:=' Dane do obliczeñ ';
@@ -162,10 +159,23 @@ begin
   Form1.Height:=450;
 end;
 
-procedure TForm1.switchFunctionNames(CustomNamesSelected: Boolean);
+procedure TForm1.SwitchFunctionNames(CustomNamesSelected: Boolean);
 begin
-  //
+  if(CustomNamesSelected) then
+  begin
+    functionNames[1]:=fNameTextBox.Text[1];
+    functionNames[2]:=dfNameTextBox.Text[1];
+    functionNames[3]:=d2fNameTextBox.Text[1];
+  end
+  else
+  begin
+    functionNames[1]:='f';
+    functionNames[2]:='df';
+    functionNames[3]:='d2f';
+  end;
+  ShowMessage(functionNames[1]+' '+functionNames[2]+' '+functionNames[3]);
 end;
+
 
 
 procedure TForm1.RadioButtonClick(Sender: TObject);
@@ -186,7 +196,7 @@ procedure TForm1.SwitchInputPanel;
 var
     fullInterval : Boolean;
 begin
-    if(radioButtons[1].Checked) then
+    if(Form1.radioButtons[1].Checked) then
       GroupBox1.Caption:=groupBoxLabel+'(arytmetyka zmiennoprzecinkowa)'
     else
       GroupBox1.Caption:=groupBoxLabel+'(artymetyka przedzia³owa)';
@@ -216,9 +226,11 @@ begin
   try
     fileName:=Addr(dllFilePath[1]);
     dllHandler:=LoadLibrary(fileName);
-    @f:=GetProcAddress(dllHandler,'f');
-    @df:=GetProcAddress(dllHandler,'df');
-    @d2f:=GetProcAddress(dllHandler,'d2f');
+    SwitchFunctionNames(namesCheckBox.Checked);
+
+    @f:=GetProcAddress(dllHandler,Addr(functionNames[1][1]));
+    @df:=GetProcAddress(dllHandler,Addr(functionNames[2][1]));
+    @d2f:=GetProcAddress(dllHandler,Addr(functionNames[3][1]));
 
     x:=StrToFloat(startApproximationTextBox.Text); //pewnie trzeba bedzie zamienic!!!!!!
     maxIterations:=StrToInt(maxIterationsTextBox.Text);
@@ -257,8 +269,11 @@ begin
   dfNameTextBox.Enabled:=checked;
   d2fNameTextBox.Enabled:=checked;
 
+  SwitchFunctionNames(checked);
 
 end;
+
+
 
 procedure TForm1.CheckDllFile;
 var
@@ -271,17 +286,23 @@ begin
     Exit;
   end;
 
+  SwitchFunctionNames(namesCheckBox.Checked);
+
   try
     fileName:=Addr(dllFilePath[1]);
     dllHandler:=LoadLibrary(fileName);
 
     try
-      LoadAndCheckDllFunction(dllHandler,'f');
-      LoadAndCheckDllFunction(dllHandler,'df');
-      LoadAndCheckDllFunction(dllHandler,'d2f');
+      LoadAndCheckDllFunction(dllHandler,functionNames[1]);
+      LoadAndCheckDllFunction(dllHandler,functionNames[2]);
+      LoadAndCheckDllFunction(dllHandler,functionNames[3]);
       dllErrorTextBox.Visible:=False;
     except
-      dllErrorTextBox.Visible:=True;
+      on Ex : Exception do
+      begin
+        dllErrorTextBox.Caption:='B³¹d! Plik nie zawiera funkcji '+Ex.Message;
+        dllErrorTextBox.Visible:=True;
+      end;
     end;
   finally
     FreeLibrary(dllHandler);
@@ -293,19 +314,13 @@ end;
 procedure TForm1.LoadAndCheckDllFunction(dllHandler:THandle;functionName:String);
 var
   dllFunction : fx;
-  fName : PWideChar;
+  name : PWideChar;
 begin
-    fName:=Addr(functionName[1]);
-    @dllFunction:=GetProcAddress(dllHandler,fName);
-    if(@dllFunction=nil) then raise Exception.Create('DLL error');
+    name := Addr(functionName[1]);
+    @dllFunction:=GetProcAddress(dllHandler,name);
+    if(@dllFunction=nil) then raise Exception.Create(functionName);
 end;
 
-procedure TForm1.LoadFunctionsFromDll(dllHandler:THandle;f: fx; df: fx; d2f: fx);
-begin
-  @f:=GetProcAddress(dllHandler,'f');
-  @df:=GetProcAddress(dllHandler,'df');
-  @d2f:=GetProcAddress(dllHandler,'d2f');
-end;
 
 
 end.
