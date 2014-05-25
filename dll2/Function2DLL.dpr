@@ -36,9 +36,9 @@ begin
 end;
 
 exports
-  f name 'function',
-  df name 'derivative',
-  d2f name 'second';
+  f name 'f',
+  df name 'df',
+  d2f name 'd2f';
 
   {$R *.res}
 end.

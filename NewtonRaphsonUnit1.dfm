@@ -4,7 +4,7 @@ object Form1: TForm1
   Caption = 
     'Program do rozwi'#261'zywania r'#243'wnania nieliniowego metod'#261' Newtona-Ra' +
     'phsona'
-  ClientHeight = 700
+  ClientHeight = 443
   ClientWidth = 882
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,9 +20,10 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 169
-    Height = 700
+    Height = 443
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 700
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -64,10 +65,11 @@ object Form1: TForm1
     Left = 169
     Top = 0
     Width = 713
-    Height = 700
+    Height = 443
     Align = alClient
     AutoSize = True
     TabOrder = 1
+    ExplicitHeight = 700
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -249,11 +251,11 @@ object Form1: TForm1
       Left = 1
       Top = 209
       Width = 711
-      Height = 490
+      Height = 233
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
-      ExplicitLeft = 65
+      ExplicitLeft = 6
       ExplicitTop = 212
       object Label5: TLabel
         Left = 96
@@ -296,30 +298,73 @@ object Form1: TForm1
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object resultTextBox: TEdit
-        Left = 299
-        Top = 27
-        Width = 190
-        Height = 21
-        ReadOnly = True
-        TabOrder = 0
-      end
       object iterationsTextBox: TEdit
         Left = 299
         Top = 81
-        Width = 190
+        Width = 116
         Height = 21
         ReadOnly = True
         TabOrder = 1
       end
+      object resultTextBox: TEdit
+        Left = 299
+        Top = 27
+        Width = 191
+        Height = 21
+        ReadOnly = True
+        TabOrder = 0
+      end
       object functionValueTextBox: TEdit
         Left = 299
         Top = 54
-        Width = 190
+        Width = 191
         Height = 21
         ReadOnly = True
         TabOrder = 2
       end
+    end
+  end
+  object intervalPanel: TPanel
+    Left = 659
+    Top = 232
+    Width = 215
+    Height = 82
+    BevelOuter = bvNone
+    Ctl3D = False
+    ParentCtl3D = False
+    TabOrder = 2
+    Visible = False
+    object Label9: TLabel
+      Left = 6
+      Top = 9
+      Width = 4
+      Height = 13
+      Caption = ';'
+    end
+    object Label11: TLabel
+      Left = 6
+      Top = 36
+      Width = 4
+      Height = 13
+      Caption = ';'
+    end
+    object resultRightTextBox: TEdit
+      Left = 14
+      Top = 6
+      Width = 190
+      Height = 21
+      Ctl3D = True
+      ParentCtl3D = False
+      TabOrder = 0
+    end
+    object functionValueRightTextBox: TEdit
+      Left = 14
+      Top = 33
+      Width = 190
+      Height = 21
+      Ctl3D = True
+      ParentCtl3D = False
+      TabOrder = 1
     end
   end
   object OpenDialog: TOpenDialog

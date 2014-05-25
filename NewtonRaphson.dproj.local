@@ -7,5 +7,10 @@
     <Transaction>1899-12-30 00:00:00.000.893,=I:\Dropbox\studia\ean\projekt\IntervalArithmetic32and64.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.341,=C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.022,I:\Dropbox\studia\ean\projekt\NewtonRaphsonUnit1.pas=C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-  </Transactions>
+  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="IntervalArithmetic32and64.pas"/>
+    <File Path="NewtonRaphsonUnit1.pas"/>
+    <File Path="NewtonRaphsonUnit1.dfm"/>
+    <File Path="uTExtendedX87.pas"/>
+  </ProjectSortOrder>
 </BorlandProject>
