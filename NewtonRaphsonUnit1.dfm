@@ -4,8 +4,8 @@ object Form1: TForm1
   Caption = 
     'Program do rozwi'#261'zywania r'#243'wnania nieliniowego metod'#261' Newtona-Ra' +
     'phsona'
-  ClientHeight = 443
-  ClientWidth = 882
+  ClientHeight = 426
+  ClientWidth = 907
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,9 +20,10 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 169
-    Height = 443
+    Height = 426
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 443
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -63,15 +64,17 @@ object Form1: TForm1
   object Panel2: TPanel
     Left = 169
     Top = 0
-    Width = 713
-    Height = 443
+    Width = 738
+    Height = 426
     Align = alClient
     AutoSize = True
     TabOrder = 1
+    ExplicitWidth = 713
+    ExplicitHeight = 443
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 711
+      Width = 736
       Height = 208
       Margins.Left = 0
       Margins.Top = 0
@@ -89,29 +92,30 @@ object Form1: TForm1
       ParentColor = False
       ParentCtl3D = False
       TabOrder = 0
+      ExplicitWidth = 711
       object Label2: TLabel
-        Left = 96
+        Left = 26
         Top = 29
         Width = 185
         Height = 13
         Caption = 'Pocz'#261'tkowe przybli'#380'enie pierwsiastka :'
       end
       object Label3: TLabel
-        Left = 96
+        Left = 26
         Top = 57
         Width = 139
         Height = 13
         Caption = 'Plik DLL z funkcjami f,df,d2f :'
       end
       object Label4: TLabel
-        Left = 96
+        Left = 26
         Top = 112
         Width = 129
         Height = 13
         Caption = 'Maksymalna liczba iteracji :'
       end
       object dllErrorTextBox: TLabel
-        Left = 453
+        Left = 383
         Top = 56
         Width = 213
         Height = 13
@@ -125,14 +129,14 @@ object Form1: TForm1
         Visible = False
       end
       object Label10: TLabel
-        Left = 96
+        Left = 26
         Top = 136
         Width = 197
         Height = 13
         Caption = 'B'#322#261'd wzgl'#281'dny wyznaczania pierwiastka :'
       end
       object labelSemiColon1: TLabel
-        Left = 421
+        Left = 351
         Top = 31
         Width = 4
         Height = 13
@@ -140,14 +144,14 @@ object Form1: TForm1
         Visible = False
       end
       object startApproximationTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 26
         Width = 116
         Height = 21
         TabOrder = 0
       end
       object Button2: TButton
-        Left = 299
+        Left = 229
         Top = 161
         Width = 116
         Height = 25
@@ -156,7 +160,7 @@ object Form1: TForm1
         OnClick = Button2Click
       end
       object Button1: TButton
-        Left = 421
+        Left = 351
         Top = 53
         Width = 26
         Height = 21
@@ -165,28 +169,28 @@ object Form1: TForm1
         OnClick = Button1Click
       end
       object epsilonTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 134
         Width = 116
         Height = 21
         TabOrder = 7
       end
       object fileTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 53
         Width = 116
         Height = 21
         TabOrder = 2
       end
       object maxIterationsTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 107
         Width = 116
         Height = 21
         TabOrder = 6
       end
       object Button3: TButton
-        Left = 421
+        Left = 351
         Top = 134
         Width = 26
         Height = 21
@@ -201,7 +205,7 @@ object Form1: TForm1
         OnClick = Button3Click
       end
       object dfNameTextBox: TEdit
-        Left = 349
+        Left = 279
         Top = 80
         Width = 44
         Height = 21
@@ -210,7 +214,7 @@ object Form1: TForm1
         Text = 'df'
       end
       object fNameTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 80
         Width = 44
         Height = 21
@@ -219,7 +223,7 @@ object Form1: TForm1
         Text = 'f'
       end
       object namesCheckBox: TCheckBox
-        Left = 96
+        Left = 26
         Top = 82
         Width = 162
         Height = 17
@@ -228,15 +232,15 @@ object Form1: TForm1
         OnClick = namesCheckBoxClick
       end
       object startApproximationRightTextBox: TEdit
-        Left = 429
+        Left = 359
         Top = 26
-        Width = 84
+        Width = 116
         Height = 21
         TabOrder = 1
         Visible = False
       end
       object d2fNameTextBox: TEdit
-        Left = 399
+        Left = 329
         Top = 80
         Width = 44
         Height = 21
@@ -248,41 +252,43 @@ object Form1: TForm1
     object GroupBox2: TGroupBox
       Left = 1
       Top = 209
-      Width = 711
-      Height = 233
+      Width = 736
+      Height = 216
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
+      ExplicitLeft = 0
+      ExplicitTop = 193
       object Label5: TLabel
-        Left = 96
+        Left = 26
         Top = 30
         Width = 162
         Height = 13
         Caption = 'Przybli'#380'ona warto'#347#263' pierwiastka : '
       end
       object Label6: TLabel
-        Left = 96
+        Left = 26
         Top = 57
         Width = 180
         Height = 13
         Caption = 'Warto'#347#263' funkcji dla tego pierwiastka :'
       end
       object Label7: TLabel
-        Left = 96
+        Left = 26
         Top = 84
         Width = 134
         Height = 13
         Caption = 'Liczba wykonanych iteracji :'
       end
       object Label8: TLabel
-        Left = 96
+        Left = 26
         Top = 111
         Width = 127
         Height = 13
         Caption = 'Status ko'#324'cowy oblicze'#324' : '
       end
       object statusLabel: TLabel
-        Left = 299
+        Left = 229
         Top = 108
         Width = 159
         Height = 13
@@ -295,7 +301,7 @@ object Form1: TForm1
         ParentFont = False
       end
       object iterationsTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 81
         Width = 116
         Height = 21
@@ -303,7 +309,7 @@ object Form1: TForm1
         TabOrder = 1
       end
       object resultTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 27
         Width = 191
         Height = 21
@@ -311,61 +317,69 @@ object Form1: TForm1
         TabOrder = 0
       end
       object functionValueTextBox: TEdit
-        Left = 299
+        Left = 229
         Top = 54
         Width = 191
         Height = 21
         ReadOnly = True
         TabOrder = 2
       end
-    end
-  end
-  object intervalPanel: TPanel
-    Left = 659
-    Top = 232
-    Width = 215
-    Height = 82
-    BevelOuter = bvNone
-    Ctl3D = False
-    ParentCtl3D = False
-    TabOrder = 2
-    Visible = False
-    object Label9: TLabel
-      Left = 6
-      Top = 9
-      Width = 4
-      Height = 13
-      Caption = ';'
-    end
-    object Label11: TLabel
-      Left = 6
-      Top = 36
-      Width = 4
-      Height = 13
-      Caption = ';'
-    end
-    object resultRightTextBox: TEdit
-      Left = 14
-      Top = 6
-      Width = 190
-      Height = 21
-      Ctl3D = True
-      ParentCtl3D = False
-      TabOrder = 0
-    end
-    object functionValueRightTextBox: TEdit
-      Left = 14
-      Top = 33
-      Width = 190
-      Height = 21
-      Ctl3D = True
-      ParentCtl3D = False
-      TabOrder = 1
+      object intervalPanel: TPanel
+        Left = 420
+        Top = 21
+        Width = 269
+        Height = 82
+        BevelOuter = bvNone
+        Ctl3D = False
+        ParentCtl3D = False
+        TabOrder = 3
+        Visible = False
+        object Label9: TLabel
+          Left = 6
+          Top = 9
+          Width = 4
+          Height = 13
+          Caption = ';'
+        end
+        object Label11: TLabel
+          Left = 6
+          Top = 36
+          Width = 4
+          Height = 13
+          Caption = ';'
+        end
+        object SpeedButton1: TSpeedButton
+          Left = 210
+          Top = 5
+          Width = 27
+          Height = 22
+          Caption = 'len'
+          OnClick = SpeedButton1Click
+        end
+        object resultRightTextBox: TEdit
+          Left = 14
+          Top = 6
+          Width = 190
+          Height = 21
+          Ctl3D = True
+          ParentCtl3D = False
+          TabOrder = 0
+        end
+        object functionValueRightTextBox: TEdit
+          Left = 14
+          Top = 33
+          Width = 190
+          Height = 21
+          Ctl3D = True
+          ParentCtl3D = False
+          TabOrder = 1
+        end
+      end
     end
   end
   object OpenDialog: TOpenDialog
     Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
-    Left = 800
-    Top = 144
+    Left = 184
+    Top = 160
   end
 end

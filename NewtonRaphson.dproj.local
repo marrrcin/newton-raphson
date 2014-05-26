@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.022,I:\Dropbox\studia\ean\projekt\NewtonRaphsonUnit1.dfm=C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.525,I:\Dropbox\studia\ean\projekt\NewtonRaphson.dproj=C:\Users\Marcin\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.525,C:\Users\Marcin\Documents\RAD Studio\Projects\Project1.dproj=I:\Dropbox\studia\ean\projekt\NewtonRaphson.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.022,C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.dfm=I:\Dropbox\studia\ean\projekt\NewtonRaphsonUnit1.dfm</Transaction>
     <Transaction>1899-12-30 00:00:00.000.899,=I:\Dropbox\studia\ean\projekt\uTExtendedX87.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.893,=I:\Dropbox\studia\ean\projekt\IntervalArithmetic32and64.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.341,=C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.022,I:\Dropbox\studia\ean\projekt\NewtonRaphsonUnit1.pas=C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <Transaction>1899-12-30 00:00:00.000.022,C:\Users\Marcin\Documents\RAD Studio\Projects\Unit1.pas=I:\Dropbox\studia\ean\projekt\NewtonRaphsonUnit1.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="IntervalArithmetic32and64.pas"/>
     <File Path="NewtonRaphsonUnit1.pas"/>
     <File Path="NewtonRaphsonUnit1.dfm"/>

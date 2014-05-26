@@ -5,10 +5,11 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTExtendedX87, Vcl.StdCtrls,
-  Vcl.ExtCtrls,IntervalArithmetic32and64 ;
+  Vcl.ExtCtrls,IntervalArithmetic32and64, Vcl.Buttons ;
 
 type Extended = TExtendedX87;
 type fx = function (x: Extended) : Extended;
+type ifx = function (x: interval) : interval;
 type
   TForm1 = class(TForm)
     Panel1: TPanel;
@@ -51,11 +52,13 @@ type
     functionValueRightTextBox: TEdit;
     Label9: TLabel;
     Label11: TLabel;
+    SpeedButton1: TSpeedButton;
     procedure RadioButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure CheckDllFile();
     procedure LoadAndCheckDllFunction(dllHandler:THandle;functionName:String);
+    procedure LoadAndCheckDllIntervalFunction(dllHandler:THandle;functionName:String);
     procedure WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
     procedure WriteResultsInterval(result:interval;fResultValue:interval;iterations:Integer;status:Integer);
     procedure Button2Click(Sender: TObject);
@@ -63,6 +66,7 @@ type
     procedure SwitchInputPanel();
     procedure namesCheckBoxClick(Sender: TObject);
     procedure SwitchFunctionNames(CustomNamesSelected:Boolean);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,6 +74,8 @@ type
   dllFilePath : String;
   functionNames : Array[1..3] of String;
   groupBoxLabel : String;
+  intervalResult : interval;
+
     { Public declarations }
   end;
 
@@ -169,6 +175,12 @@ begin
 
 end;
 
+function isqrt(int : interval):interval;
+begin
+  isqrt.a:=sqrt(int.a);
+  isqrt.b:=sqrt(int.b);
+end;
+
 function isIntervalGreater(var int1,int2 : interval):Boolean;
 var tmp : interval;
 begin
@@ -178,19 +190,6 @@ begin
 		isIntervalGreater:=True
 	else
 		isIntervalGreater:=False;
-end;
-
-function getProperInterval(var int : interval):interval;
-var tmp : Extended;
-begin
-  if (int.b<int.a) then
-  begin
-    tmp:=int.a;
-    int.a:=int.b;
-    int.b:=tmp;
-  end;
-
-  getProperInterval:=int;
 end;
 
 function containsZero(const int : interval): Boolean;
@@ -204,7 +203,7 @@ begin
 end;
 
 function NewtonRaphsonInterval(var x : interval;
-							   f,df,d2f : fx;
+							   f,df,d2f : ifx;
 							   mit : Integer;
 							   eps : Extended;
                  var ifatx:interval;
@@ -226,17 +225,10 @@ begin
 				it:=it+1;
 
 				//wartosci funkcji i pochodnych w punkcie (interwale) x
-				fAtX.a := f(x.a);
-				fAtX.b := f(x.b);
-        fAtX:=getProperInterval(fAtX);
 
-				dfAtX.a:= df(x.a);
-				dfAtX.b:= df(x.b);
-        dfAtX:=getProperInterval(dfAtX);
-
-				d2fAtX.a:=d2f(x.a);
-				d2fAtX.b:=d2f(x.b);
-        d2fAtX:=getProperInterval(d2fAtX);
+        fAtX:=f(x);
+        dfAtX:=df(x);
+        d2fAtX:=d2f(x);
 
 				//liczba pod pierwiastkiem wzoru (licznik)
 				tmp1:=imul(dfAtX,dfAtX);
@@ -257,8 +249,7 @@ begin
 					w:=iabs(xh);
 
           //na pewno? czy napisac?
-					p.a:=sqrt(p.a);
-          p.b:=sqrt(p.b);
+					p:=isqrt(p);
 
 					tmp1:=isub(dfAtX,p);
 					tmp1:=idiv(tmp1,d2fAtX);
@@ -306,9 +297,7 @@ begin
 
 	if (st=0) or (st=3) then
 	begin
-    ifatx.a:=f(x.a);
-		ifatx.b:=f(x.b);
-    ifatx:=getProperInterval(ifatx);
+    ifatx:=f(x);
  		NewtonRaphsonInterval:=x;
 	end;
 end;
@@ -333,11 +322,19 @@ begin
   radioButtons[3]:=RadioButton3;
   SwitchFunctionNames(false);
   dllFilePath:='';
+  intervalResult.a:=0;
+  intervalResult.b:=0;
 
   groupBoxLabel:=' Dane do obliczeñ ';
   SwitchInputPanel;
 
   Form1.Height:=450;
+end;
+
+procedure TForm1.SpeedButton1Click(Sender: TObject);
+var int : interval;
+begin
+    ShowMessage(FloatToStr(int_width(intervalResult)));
 end;
 
 procedure TForm1.SwitchFunctionNames(CustomNamesSelected: Boolean);
@@ -384,7 +381,7 @@ begin
     fullInterval:=radioButtons[3].Checked;
     startApproximationRightTextBox.Visible:=fullInterval;
     labelSemiColon1.Visible:=fullInterval;
-    intervalPanel.Visible:=fullInterval;
+    intervalPanel.Visible:=fullInterval or radioButtons[2].Checked;
 
 end;
 
@@ -395,7 +392,10 @@ var
   functionName : PWideChar;
   x : Extended;
   ix : interval;
+  functions : Array [1..3] of fx;
+  ifunctions : Array [1..3] of ifx;
   f,df,d2f : fx;
+  //ifunc,idf,id2f:ifx;
   result : Extended;
   maxIterations : Integer;
   epsilon : Extended;
@@ -406,6 +406,7 @@ var
   iresult : interval;
   ileft : String;
   iright : String;
+  i: Integer;
 begin
   if(dllErrorTextBox.Visible=True) then
     Exit;
@@ -415,14 +416,15 @@ begin
     dllHandler:=LoadLibrary(fileName);
     SwitchFunctionNames(namesCheckBox.Checked);
 
-    functionName:=Addr(functionNames[1][1]);
-    @f:=GetProcAddress(dllHandler,functionName);
-
-    functionName:=Addr(functionNames[2][1]);
-    @df:=GetProcAddress(dllHandler,functionName);
-
-    functionName:=Addr(functionNames[3][1]);
-    @d2f:=GetProcAddress(dllHandler,functionName);
+    //wczytanie funkcji z dll
+    for i := 1 to 3 do
+    begin
+        functionName:=Addr(functionNames[i][1]);
+        if(radioButtons[1].Checked) then
+          @functions[i]:=GetProcAddress(dllHandler,functionName)
+        else
+          @ifunctions[i]:=GetProcAddress(dllHandler,functionName);
+    end;
 
     maxIterations:=StrToInt(maxIterationsTextBox.Text);
     epsilon:=StrToFloat(epsilonTextBox.Text);
@@ -431,14 +433,17 @@ begin
     if(radioButtons[1].Checked) then
     begin
        x:=StrToFloat(startApproximationTextBox.Text); //pewnie trzeba bedzie zamienic!!!!!!
-       result:=NewtonRaphson(x,f,df,d2f,maxIterations,epsilon,fResultValue,doneIterations,status);
+       result:=NewtonRaphson(x,functions[1],functions[2],functions[3],maxIterations,epsilon,fResultValue,doneIterations,status);
        WriteResults(result,fResultValue,doneIterations,status);
     end
     else
     begin
       ix.a:=left_read(startApproximationTextBox.Text);
+      if(radioButtons[2].Checked) then
+        startApproximationRightTextBox.Text:=startApproximationTextBox.Text;
       ix.b:=right_read(startApproximationRightTextBox.Text);
-      iresult:=NewtonRaphsonInterval(ix,f,df,d2f,maxIterations,epsilon,ifResultValue,doneIterations,status);
+      iresult:=NewtonRaphsonInterval(ix,ifunctions[1],ifunctions[2],ifunctions[3],maxIterations,epsilon,ifResultValue,doneIterations,status);
+      intervalResult:=iresult;
       try
          WriteResultsInterval(iresult,ifResultValue,doneIterations,status);
       except
@@ -519,9 +524,18 @@ begin
     dllHandler:=LoadLibrary(fileName);
 
     try
-      LoadAndCheckDllFunction(dllHandler,functionNames[1]);
-      LoadAndCheckDllFunction(dllHandler,functionNames[2]);
-      LoadAndCheckDllFunction(dllHandler,functionNames[3]);
+      if radioButtons[1].Checked then
+      begin
+        LoadAndCheckDllFunction(dllHandler,functionNames[1]);
+        LoadAndCheckDllFunction(dllHandler,functionNames[2]);
+        LoadAndCheckDllFunction(dllHandler,functionNames[3]);
+      end
+      else
+      begin
+        LoadAndCheckDllIntervalFunction(dllHandler,functionNames[1]);
+        LoadAndCheckDllIntervalFunction(dllHandler,functionNames[2]);
+        LoadAndCheckDllIntervalFunction(dllHandler,functionNames[3]);
+      end;
       dllErrorTextBox.Visible:=False;
     except
       on Ex : Exception do
@@ -547,6 +561,14 @@ begin
     if(@dllFunction=nil) then raise Exception.Create(functionName);
 end;
 
-
+procedure TForm1.LoadAndCheckDllIntervalFunction(dllHandler:THandle;functionName:String);
+var
+dllFunction : ifx;
+name : PWideChar;
+begin
+    name := Addr(functionName[1]);
+    @dllFunction:=GetProcAddress(dllHandler,name);
+    if(@dllFunction=nil) then raise Exception.Create(functionName);
+end;
 
 end.
