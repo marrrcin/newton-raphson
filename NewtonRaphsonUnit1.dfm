@@ -23,7 +23,6 @@ object Form1: TForm1
     Height = 443
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 700
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -69,7 +68,6 @@ object Form1: TForm1
     Align = alClient
     AutoSize = True
     TabOrder = 1
-    ExplicitHeight = 700
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -255,8 +253,6 @@ object Form1: TForm1
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
-      ExplicitLeft = 6
-      ExplicitTop = 212
       object Label5: TLabel
         Left = 96
         Top = 30

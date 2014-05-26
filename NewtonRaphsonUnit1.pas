@@ -141,15 +141,8 @@ function iabs(var int : interval):interval;
 var
 	absA,absB : Extended;
 begin
-	if(int.a<0) then
-		absA:=-int.a
-	else
-		absA:=int.a;
-
-	if(int.b<0) then
-		absB:=-int.b
-	else
-		absB:=int.b;
+  absA:=abs(int.a);
+  absB:=abs(int.b);
 
 	if(absA>absB) then
 	begin
@@ -161,6 +154,10 @@ begin
 		iabs.a:=absA;
 		iabs.b:=absB;
 	end;
+
+  if(int.a<=0) and (int.b>=0) then
+    iabs.a:=0;
+
 end;
 
 function imax(var int1,int2:interval):interval;
@@ -228,7 +225,6 @@ begin
 			repeat
 				it:=it+1;
 
-
 				//wartosci funkcji i pochodnych w punkcie (interwale) x
 				fAtX.a := f(x.a);
 				fAtX.b := f(x.b);
@@ -249,7 +245,8 @@ begin
 				p:=isub(tmp1,tmp2);
 
 				//do sprawdzenia  , pierwotnie : (p.a<0) or (p.b<0)
-				if (p.a<0) or (p.b<0) then
+        //amarciniak : wystarczy sprawdzic prawy koniec
+				if (p.b<0) then
 					st:=4
 				else
 				if containsZero(d2fAtX) then
@@ -309,9 +306,10 @@ begin
 
 	if (st=0) or (st=3) then
 	begin
-		NewtonRaphsonInterval:=x;
-		ifatx.a:=f(x.a);
+    ifatx.a:=f(x.a);
 		ifatx.b:=f(x.b);
+    ifatx:=getProperInterval(ifatx);
+ 		NewtonRaphsonInterval:=x;
 	end;
 end;
 
@@ -462,6 +460,8 @@ begin
   defaultValue:='0,0000000000000001';
   epsilonTextBox.Text:=defaultValue;
 end;
+
+
 
 procedure TForm1.WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
 begin
