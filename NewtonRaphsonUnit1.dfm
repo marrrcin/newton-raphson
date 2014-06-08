@@ -23,7 +23,6 @@ object Form1: TForm1
     Height = 426
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 443
     object Label1: TLabel
       Left = 8
       Top = 53
@@ -69,8 +68,6 @@ object Form1: TForm1
     Align = alClient
     AutoSize = True
     TabOrder = 1
-    ExplicitWidth = 713
-    ExplicitHeight = 443
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
@@ -92,7 +89,6 @@ object Form1: TForm1
       ParentColor = False
       ParentCtl3D = False
       TabOrder = 0
-      ExplicitWidth = 711
       object Label2: TLabel
         Left = 26
         Top = 29
@@ -257,8 +253,6 @@ object Form1: TForm1
       Align = alClient
       Caption = ' Wyniki '
       TabOrder = 1
-      ExplicitLeft = 0
-      ExplicitTop = 193
       object Label5: TLabel
         Left = 26
         Top = 30
@@ -375,6 +369,15 @@ object Form1: TForm1
           TabOrder = 1
         end
       end
+    end
+    object Button4: TButton
+      Left = 592
+      Top = 152
+      Width = 75
+      Height = 25
+      Caption = 'Button4'
+      TabOrder = 2
+      OnClick = Button4Click
     end
   end
   object OpenDialog: TOpenDialog

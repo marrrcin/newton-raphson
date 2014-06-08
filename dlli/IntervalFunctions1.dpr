@@ -21,6 +21,7 @@ function f (x : interval) : interval;
 var z,tmp,tmp2,tmp3 : interval;
 stat : Integer;
 begin
+  stat:=2;
   z:=isqr(x,stat);
   tmp.a:=5;
   tmp.b:=5;
