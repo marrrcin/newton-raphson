@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uTExtendedX87, Vcl.StdCtrls,
-  Vcl.ExtCtrls,IntervalArithmetic32and64, Vcl.Buttons ;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.ExtCtrls,IntervalArithmetic32and64, Vcl.Buttons,uTExtendedX87;
 
 type Extended = TExtendedX87;
 type fx = function (x: Extended) : Extended;
@@ -53,7 +53,6 @@ type
     Label9: TLabel;
     Label11: TLabel;
     SpeedButton1: TSpeedButton;
-    Button4: TButton;
     procedure RadioButtonClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -68,7 +67,7 @@ type
     procedure namesCheckBoxClick(Sender: TObject);
     procedure SwitchFunctionNames(CustomNamesSelected:Boolean);
     procedure SpeedButton1Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    procedure ResetResults();
   private
     { Private declarations }
   public
@@ -141,54 +140,40 @@ begin
     then begin
            NewtonRaphson:=x;
            fatx:=f(x)
-         end
-         else
-         begin
-           NewtonRaphson:=0;
          end;
 end;
 
+function containsZero(const int : interval): Boolean;
+begin
+  if(int.a<0) and (int.b>0) then
+    containsZero:=True
+  else if(int.a=0) or (int.b=0) then
+    containsZero:=True
+  else
+    containsZero:=False;
+end;
 
 function iabs(int : interval):interval;
-var
-	absA,absB : Extended;
 begin
-  absA:=abs(int.a);
-  absB:=abs(int.b);
-
-	if(absA>absB) then
-	begin
-		iabs.a:=absB;
-		iabs.b:=absA;
-	end
-	else
-	begin
-		iabs.a:=absA;
-		iabs.b:=absB;
-	end;
-
-  if(int.a<=0) and (int.b>=0) then
+  if(containsZero(int)) then
+  begin
     iabs.a:=0;
-
-end;
-
-function iabs2(x : interval) : interval;
-begin
-  if (x.a <= 0) and (x.b >= 0) then
-  begin
-    iabs2.a := 0;
-    iabs2.b := x.b
+    if(int.b>-int.a)then
+      iabs.b:=int.b
+    else
+      iabs.b:=int.a;
   end
-  else if x.b < 0 then
+  else if(int.b<0) then
   begin
-    iabs2.a := -x.b;
-    iabs2.b := -x.a;
+    iabs.a:=-int.b;
+    iabs.b:=-int.a;
   end
   else
-    iabs2.a := x.a;
-    iabs2.b := x.b;
-
+  begin
+    iabs:=int;
+  end;
 end;
+
 
 function imax(var int1,int2:interval):interval;
 begin
@@ -223,15 +208,7 @@ begin
     isIntervalSmaller:=False;
 end;
 
-function containsZero(const int : interval): Boolean;
-begin
-  if(int.a<0) and (int.b>0) then
-    containsZero:=True
-  else if(int.a=0) or (int.b=0) then
-    containsZero:=True
-  else
-    containsZero:=False;
-end;
+
 
 function NewtonRaphsonInterval(var x : interval;
 							   f,df,d2f : ifx;
@@ -241,7 +218,7 @@ function NewtonRaphsonInterval(var x : interval;
 							   var it,st : Integer) : interval;
 
 
-var fAtX,dfAtX,d2fAtX,p,tmp1,tmp2,two,xh,w,v,x1,x2 : interval;
+var fAtX,dfAtX,d2fAtX,p,tmp1,tmp2,xh,w,v,x1,x2 : interval;
 null : Integer;
 begin
 	if mit<1 then
@@ -250,13 +227,10 @@ begin
 		begin
 			st:=3;
 			it:=0;
-			two.a:=2;
-			two.b:=2;
 			repeat
 				it:=it+1;
 
 				//wartosci funkcji i pochodnych w punkcie (interwale) x
-
         fAtX:=f(x);
         dfAtX:=df(x);
         d2fAtX:=d2f(x);
@@ -264,11 +238,10 @@ begin
 				//liczba pod pierwiastkiem wzoru (licznik)
 				tmp1:=imul(dfAtX,dfAtX);
 				tmp2:=imul(fAtX,d2fAtX);
-				tmp2:=imul(two,tmp2);
+				tmp2:=imul(int_read('2'),tmp2);
 				p:=isub(tmp1,tmp2);
 
-				//do sprawdzenia  , pierwotnie : (p.a<0) or (p.b<0)
-        //amarciniak : wystarczy sprawdzic prawy koniec
+				//sprawdzenie czy przedzial jest ujemny
 				if (p.b<0) then
 					st:=4
 				else
@@ -278,22 +251,17 @@ begin
 				begin
 					xh:=x;
 					w:=iabs(xh);
-
-          //na pewno? czy napisac?
 					p:=isqrt(p);
 
-					//tmp1:=isub(dfAtX,p);
-					//tmp1:=idiv(tmp1,d2fAtX);
-					//x1:=isub(x,tmp1);
-          x1:=isub(x,idiv(isub(dfAtX,p),d2fAtX));
+					tmp1:=isub(dfAtX,p);
+					tmp1:=idiv(tmp1,d2fAtX);
+					x1:=isub(x,tmp1);
 
 
- 					//tmp2:=iadd(dfAtX,p);
-					//tmp2:=idiv(tmp2,d2fAtX);
-					//x2:=isub(x,tmp2);
-          x2:=isub(x,idiv(iadd(dfAtX,p),d2fAtX));
+ 					tmp2:=iadd(dfAtX,p);
+					tmp2:=idiv(tmp2,d2fAtX);
+					x2:=isub(x,tmp2);
 
-					//znowu do sprawdzenia
 					tmp1:=isub(x1,xh);
 					tmp1:=iabs(tmp1);
 
@@ -309,25 +277,14 @@ begin
 					if isIntervalSmaller(v,w) then
 						v:=w;
 
-					//and czy or?
-					if (v.a=0) or (v.b=0) then
+          tmp1:=isub(x,xh);
+          tmp2:=iabs(tmp1);
+          tmp1:=idiv(tmp2,v);
+
+					if (v.a=0) and (v.b=0) then
 						st:=0
-					else
-						begin
-
-							tmp1:=isub(x,xh);
-							tmp2:=iabs(tmp1);
-							tmp1:=idiv(iabs(tmp2),v);
-							//tmp2.a:=eps;
-							//tmp2.b:=eps;
-
-              if(tmp1.a<=eps) and (tmp1.b<=eps) then
-                st:=0;
-
-							//if isIntervalGreater(tmp2,tmp1) then
-							 //	st:=0
-						end;
-
+					else if(tmp1.a<=eps) and (tmp1.b<=eps) then
+            st:=0
 
 				end
 			until(it=mit) or (st<>3)
@@ -338,14 +295,7 @@ begin
     ifatx:=f(x);
  		NewtonRaphsonInterval:=x;
 	end
-  else
-  begin
-    NewtonRaphsonInterval.a:=0;
-    NewtonRaphsonInterval.b:=0;
-  end;
 end;
-
-
 
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -376,8 +326,10 @@ end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
 var int : interval;
+  strx : String;
 begin
-    ShowMessage(FloatToStr(int_width(intervalResult)));
+    Str(int_width(intervalResult):25,strx);
+    ShowMessage(strx);
 end;
 
 procedure TForm1.SwitchFunctionNames(CustomNamesSelected: Boolean);
@@ -428,6 +380,31 @@ begin
 
 end;
 
+function GetStatus(status:Integer):String;
+begin
+  if(status=0) then
+    GetStatus:='OK (0)'
+  else if(status=1) then
+    GetStatus:='Za malo iteracji (1)'
+  else if(status=2) then
+    GetStatus:='Druga pochodna miala wartosc 0 dla pewnego x (2)'
+  else if(status=3) then
+    GetStatus:='Nie uzyskano podanej dokladnosci w zadanej liczbie krokow (3)'
+  else
+    GetStatus:='Proba wyciagniecia pierwiastka z liczby ujemnej (4)';
+end;
+
+
+procedure TForm1.ResetResults();
+begin
+  resultTextBox.Text:='';
+  resultRightTextBox.Text:='';
+  functionValueRightTextBox.Text:='';
+  functionValueTextBox.Text:='';
+  iterationsTextBox.Text:='';
+  statusLabel.Caption:='';
+end;
+
 procedure TForm1.Button2Click(Sender: TObject);
 var
   dllHandler : THandle;
@@ -441,7 +418,7 @@ var
   //ifunc,idf,id2f:ifx;
   result : Extended;
   maxIterations : Integer;
-  epsilon : Extended;
+  epsilon : TExtendedX87;
   doneIterations : Integer;
   fResultValue : Extended;
   ifResultValue : interval;
@@ -450,7 +427,9 @@ var
   ileft : String;
   iright : String;
   i: Integer;
+  code : integer;
 begin
+  ResetResults();
   if(dllErrorTextBox.Visible=True) then
     Exit;
 
@@ -469,28 +448,53 @@ begin
           @ifunctions[i]:=GetProcAddress(dllHandler,functionName);
     end;
 
-    maxIterations:=StrToInt(maxIterationsTextBox.Text);
-    epsilon:=StrToFloat(epsilonTextBox.Text);
+    try
+      maxIterations:=StrToInt(maxIterationsTextBox.Text);
+      Val(epsilonTextBox.Text,epsilon,code);
+    except
+      ShowMessage('Wystapil blad, sprawdz dane');
+      Exit;
+    end;
+
+    //epsilon:=StrToFloat(epsilonTextBox.Text);
 
 
     if(radioButtons[1].Checked) then
     begin
-       x:=StrToFloat(startApproximationTextBox.Text); //pewnie trzeba bedzie zamienic!!!!!!
-       result:=NewtonRaphson(x,functions[1],functions[2],functions[3],maxIterations,epsilon,fResultValue,doneIterations,status);
-       WriteResults(result,fResultValue,doneIterations,status);
+       Val(startApproximationTextBox.Text,x,code);
+       try
+          result:=NewtonRaphson(x,functions[1],functions[2],functions[3],maxIterations,epsilon,fResultValue,doneIterations,status);
+          try
+            WriteResults(result,fResultValue,doneIterations,status);
+          except
+            statusLabel.Caption:=GetStatus(status);
+          end;
+       except
+        ShowMessage('Wystapil blad podczas obliczen, sprawdz dane');
+      end;
+
+
     end
     else
     begin
-      ix.a:=left_read(startApproximationTextBox.Text);
+
       if(radioButtons[2].Checked) then
-        startApproximationRightTextBox.Text:=startApproximationTextBox.Text;
-      ix.b:=right_read(startApproximationRightTextBox.Text);
+        ix:=int_read(startApproximationTextBox.Text)
+      else
+        begin
+          ix.a:=left_read(startApproximationTextBox.Text);
+          ix.b:=right_read(startApproximationRightTextBox.Text);
+        end;
+      try
       iresult:=NewtonRaphsonInterval(ix,ifunctions[1],ifunctions[2],ifunctions[3],maxIterations,epsilon,ifResultValue,doneIterations,status);
+      except
+        ShowMessage('Wystapil blad podczas obliczen, sprawdz dane');
+      end;
       intervalResult:=iresult;
       try
          WriteResultsInterval(iresult,ifResultValue,doneIterations,status);
       except
-         statusLabel.Caption:=IntToStr(status);
+         statusLabel.Caption:=GetStatus(status);
       end;
 
     end;
@@ -510,33 +514,6 @@ begin
 end;
 
 
-
-procedure TForm1.Button4Click(Sender: TObject);
-var
-  pk,my,tmp : interval;
-  c : integer;
-begin
-  Val(startApproximationTextBox.Text,tmp.a,c);
-  Val(startApproximationRightTextBox.Text,tmp.b,c);
-  pk:=iabs2(tmp);
-  my:=iabs(tmp);
-  ShowMessage('My : '+FloatToStr(my.a)+';'+FloatToStr(my.b)+'\nPK : '+FloatToStr(pk.a)+';'+FloatToStr(pk.b));
-end;
-
-function GetStatus(status:Integer):String;
-begin
-  if(status=0) then
-    GetStatus:='OK (0)'
-  else if(status=1) then
-    GetStatus:='Za malo iteracji (1)'
-  else if(status=2) then
-    GetStatus:='Druga pochodna miala wartosc 0 dla pewnego x (2)'
-  else if(status=3) then
-    GetStatus:='Nie uzyskano podanej dokladnosci w zadanej liczbie krokow (3)'
-  else
-    GetStatus:='Proba wyciagniecia pierwiastka z liczby ujemnej (4)';
-end;
-
 procedure TForm1.WriteResults(result:Extended;fResultValue:Extended;iterations:Integer;status:Integer);
 begin
   resultTextBox.Text:=FloatToStr(result);
@@ -549,14 +526,19 @@ procedure TForm1.WriteResultsInterval(result:interval;fResultValue:interval;iter
 var
   left,right,fLeft,fRight:String;
 begin
-  iends_to_strings(result,left,right);
-  iends_to_strings(fResultValue,fLeft,fRight);
+try
+    iends_to_strings(result,left,right);
+    iends_to_strings(fResultValue,fLeft,fRight);
+except
+
+end;
+
 
   resultTextBox.Text:=left;
   resultRightTextBox.Text:=right;
   functionValueTextBox.Text:=fLeft;
   functionValueRightTextBox.Text:=fRight;
-  iterationsTextBox.Text:=FloatToStr(iterations);
+  iterationsTextBox.Text:=IntToStr(iterations);
   statusLabel.Caption:=GetStatus(status);
 end;
 

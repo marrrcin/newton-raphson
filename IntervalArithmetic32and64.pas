@@ -66,6 +66,8 @@ function isqrt8 : interval;
 function isqrt10 : interval;
 function ipi : interval;
 
+function intervalToString (const x : interval) : string;
+
 implementation
   uses System.SysUtils, System.Math, Vcl.Dialogs;
   type char_tab        = array [1..80] of Char;
@@ -1795,6 +1797,13 @@ implementation
     ipistr:='3.141592653589793239';
     Result.b:=right_read(ipistr)
   end {ipi};
+
+  function intervalToString (const x : interval) : string;
+  var rsltStr : string;
+  begin
+    rsltStr := '(' + FloatToStr(x.a) + ', ' + FloatToStr(x.b) + ')';
+    intervalToString := rsltStr;
+  end;
 
 {$IFDEF WIN64}
 initialization

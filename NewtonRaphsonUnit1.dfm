@@ -370,15 +370,6 @@ object Form1: TForm1
         end
       end
     end
-    object Button4: TButton
-      Left = 592
-      Top = 152
-      Width = 75
-      Height = 25
-      Caption = 'Button4'
-      TabOrder = 2
-      OnClick = Button4Click
-    end
   end
   object OpenDialog: TOpenDialog
     Filter = 'Biblioteki DLL|*.dll;*.DLL;|Wszystkie pliki|*.*;'
